@@ -2,39 +2,20 @@
   import "./layout.css";
   import favicon from "$lib/assets/favicon.svg";
   import { session } from "$lib/firebase/session";
-  import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import AppSidebar from "$lib/components/appsidebar/app-sidebar.svelte";
+  import type { LayoutProps } from "./$types";
 
-  let { data, children } = $props();
-  let loading: boolean = $state(true);
-  let loggedIn: boolean = $state(false);
+  let { data, children }: LayoutProps = $props();
 
-  session.subscribe((cur: any) => {
-    loading = cur?.loading;
-    loggedIn = cur?.loggedIn;
-  });
-
-  onMount(async () => {
-    const user: any = await data.getAuthUser();
-
-    const loggedIn = !!user && user?.emailVerified;
-    session.update((cur: any) => {
-      loading = false;
+  $effect(() => {
+    session.update((cur) => {
       return {
         ...cur,
-        user,
-        loggedIn,
-        loading: false,
+        user: data.user,
+        loggedIn: !!data.user,
       };
     });
-
-    if (loggedIn) {
-      goto("/");
-    } else {
-      goto("/login");
-    }
   });
 </script>
 
