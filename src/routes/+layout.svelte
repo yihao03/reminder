@@ -1,21 +1,40 @@
 <script lang="ts">
   import "./layout.css";
   import favicon from "$lib/assets/favicon.svg";
-  import { session } from "$lib/firebase/session";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import AppSidebar from "$lib/components/appsidebar/app-sidebar.svelte";
   import type { LayoutProps } from "./$types";
+  import Firebase from "$lib/firebase/init";
+  import { session } from "$lib/firebase/session";
+  import { onAuthStateChanged } from "firebase/auth";
+  import { onMount } from "svelte";
 
-  let { data, children }: LayoutProps = $props();
+  let { children }: LayoutProps = $props();
 
-  $effect(() => {
-    session.update((cur) => {
-      return {
-        ...cur,
-        user: data.user,
-        loggedIn: !!data.user,
-      };
+  onMount(() => {
+    Firebase.getInstance();
+    const unsubscribe = onAuthStateChanged(Firebase.getAuth(), (user) => {
+      if (user) {
+        session.set({
+          user: {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          },
+          loading: false,
+          loggedIn: !!user,
+        });
+      } else {
+        session.set({
+          user: null,
+          loading: false,
+          loggedIn: false,
+        });
+      }
     });
+
+    return unsubscribe; // Cleanup when component unmounts
   });
 </script>
 

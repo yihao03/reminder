@@ -3,14 +3,7 @@
 declare global {
   namespace App {
     // interface Error {}
-    interface Locals {
-      user: {
-        uid: string;
-        email: string | null;
-        displayName: string | null;
-        photoURL: string | null;
-      } | null;
-    }
+    // interface Locals {}
     // interface PageData {}
     // interface PageState {}
     // interface Platform {}
