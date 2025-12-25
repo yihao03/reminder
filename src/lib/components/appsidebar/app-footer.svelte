@@ -9,8 +9,8 @@
   import { ChevronUp } from "@lucide/svelte";
   import { session } from "$lib/firebase/session";
 
-  const user = $session?.user ?? undefined;
-  const username = user ? user.displayName || user.email : "Login";
+  const user = $derived($session?.user ?? undefined);
+  const username = $derived(user ? user.displayName || user.email : "Login");
 </script>
 
 <Footer>
