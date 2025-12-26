@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 import { redirect } from '@sveltejs/kit';
 
-const PUBLIC_ROUTES = ['/api/auth', '/login', '/register'];
+const PUBLIC_ROUTES = ['/api/admin/auth', '/login', '/register'];
 
 export const handle: Handle = async ({ event, resolve }) => {
   const sessionCookie = event.cookies.get('session');
@@ -21,7 +21,6 @@ export const handle: Handle = async ({ event, resolve }) => {
         return false;
       });
   }
-
   const isPublicRoute = PUBLIC_ROUTES.some(route =>
     event.url.pathname.startsWith(route)
   );

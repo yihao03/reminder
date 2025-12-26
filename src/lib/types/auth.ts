@@ -6,8 +6,14 @@ export const UserSchema = z.object({
   photoURL: z.string().nullable(),
   uid: z.string(),
 });
-
 export type User = z.infer<typeof UserSchema>
+
+export const AuthSchema = z.object({
+  user: UserSchema,
+  idToken: z.string()
+})
+export type Auth = z.infer<typeof AuthSchema>
+
 
 export type SessionState = {
   user: User | null;

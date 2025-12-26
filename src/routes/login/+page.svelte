@@ -8,14 +8,15 @@
     type UserCredential,
   } from "firebase/auth";
   import { session } from "$lib/firebase/session";
-  import { goto } from "$app/navigation";
-  import { fail } from "@sveltejs/kit";
+  import type { Auth } from "$lib/types/auth";
 
   let email = $state("");
   let password = $state("");
 
   const handleLogin = async (event: SubmitEvent) => {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
+
     try {
       const result = await signInWithEmailAndPassword(
         Firebase.getAuth(),
@@ -25,15 +26,15 @@
 
       const { user }: UserCredential = result;
 
-      const response = await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken: await user.getIdToken() }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to persist session");
-      }
+      const authUser: Auth = {
+        user: {
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+          photoURL: user.photoURL,
+        },
+        idToken: await user.getIdToken(),
+      };
 
       session.set({
         user,
@@ -41,10 +42,17 @@
         loggedIn: true,
       });
 
-      goto("/");
+      const authInput = document.createElement("input");
+      authInput.type = "hidden";
+      authInput.name = "authData";
+      authInput.value = JSON.stringify(authUser);
+      form.appendChild(authInput);
+      form.submit();
+
+      return true; // Allow form submission
     } catch (error: any) {
       console.error("Login error:", error, { email });
-      return fail(401, { error: "Invalid email or password" });
+      return false; // Prevent form submission
     }
   };
 </script>
@@ -54,7 +62,7 @@
     <div
       class="flex flex-col gap-4 bg-background p-8 rounded-md shadow-md text-center"
     >
-      <form onsubmit={handleLogin}>
+      <form method="post" onsubmit={handleLogin}>
         <Field.Group>
           <Field.Legend>Login</Field.Legend>
           <Field.Field>
