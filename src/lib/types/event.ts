@@ -11,10 +11,10 @@ export const EventSchema = z.object({
   endTime: z.iso.datetime(),
   details: z.string(),
   eventName: z.string(),
-  registeredUsers: z.array(UserSchema)
+  users: z.array(UserSchema)
 })
 
 export const EventListViewSchema = EventSchema.omit({ createdAt: true, details: true, registeredUsers: true })
 export type EventListView = z.infer<typeof EventListViewSchema>
 
-export type Event = z.infer<typeof EventSchema>;
+export type RemindEvent = z.infer<typeof EventSchema>;
