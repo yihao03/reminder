@@ -49,27 +49,38 @@
   };
 </script>
 
-<div class="w-auto max-w-md mx-auto mt-10 space-y-6">
-  <div
-    class="flex flex-col gap-4 bg-background p-8 rounded-md shadow-md text-center"
-  >
-    <form onsubmit={handleLogin}>
-      <Field.Group>
-        <Field.Legend>Login</Field.Legend>
-        <Field.Field>
-          <Field.Label>Email</Field.Label>
-          <Input type="email" placeholder="Email" bind:value={email} required />
-        </Field.Field>
-        <Field.Field>
-          <Field.Label>Password</Field.Label>
-          <Input bind:value={password} type="password" placeholder="Password" />
-        </Field.Field>
-        <Button type="submit">Login</Button>
-      </Field.Group>
-    </form>
+<div class="flex-1 w-full overflow-auto">
+  <div class="w-auto max-w-md mx-auto mt-10 space-y-6">
+    <div
+      class="flex flex-col gap-4 bg-background p-8 rounded-md shadow-md text-center"
+    >
+      <form onsubmit={handleLogin}>
+        <Field.Group>
+          <Field.Legend>Login</Field.Legend>
+          <Field.Field>
+            <Field.Label>Email</Field.Label>
+            <Input
+              type="email"
+              placeholder="Email"
+              bind:value={email}
+              required
+            />
+          </Field.Field>
+          <Field.Field>
+            <Field.Label>Password</Field.Label>
+            <Input
+              bind:value={password}
+              type="password"
+              placeholder="Password"
+            />
+          </Field.Field>
+          <Button type="submit">Login</Button>
+        </Field.Group>
+      </form>
 
-    <div>or</div>
+      <div>or</div>
 
-    <div>Don't have an account? <a href="/register"> Register</a></div>
+      <div>Don't have an account? <a href="/register"> Register</a></div>
+    </div>
   </div>
 </div>
