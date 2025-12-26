@@ -1,9 +1,8 @@
 import { getAllEvents } from "$lib/server/api/events";
 
-export const load = async ({ fetch }) => {
+export async function load({ fetch }) {
   const events = await getAllEvents(fetch);
   return {
-    events
+    events: events
   }
 }
-

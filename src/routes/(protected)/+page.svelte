@@ -1,25 +1,21 @@
 <script>
+  import EventList from "$lib/components/events/event-list.svelte";
   import {
     Root as Card,
     Header,
     Title,
     Description,
-    Action,
-    Content,
   } from "$lib/components/ui/card";
+
+  const { data } = $props();
 </script>
 
 <!-- Main template/markup -->
-<div class="container">
+<div class="max-w-5xl p-4 mx-auto">
   <h1 class="text-6xl text-bold">Reminder</h1>
   <h2>The RemindMe admin panel, empowering dementia caregivers</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-    <Card>
-      <Header>
-        <Title>Events</Title>
-        <Description>View and manage upcoming events</Description>
-      </Header>
-    </Card>
+    <EventList events={data.events} />
     <Card>
       <Header>
         <Title>Education</Title>
@@ -28,16 +24,3 @@
     </Card>
   </div>
 </div>
-
-<style>
-  /* Component-scoped styles */
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  h1 {
-    color: #333;
-  }
-</style>
