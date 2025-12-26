@@ -1,8 +1,11 @@
+import adminAuth from '$lib/server/firebaseadmin/init';
 import { json } from '@sveltejs/kit';
 
 export async function POST({ request, cookies }) {
   try {
     const { idToken } = await request.json();
+
+    await adminAuth.verifyIdToken(idToken);
 
     cookies.set('session', idToken, {
       path: '/',
