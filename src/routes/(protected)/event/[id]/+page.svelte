@@ -34,38 +34,38 @@
         <p class="text-gray-600 whitespace-pre-wrap">{event.details}</p>
       </div>
     {/if}
-    <!-- {#if event.registeredUsers.length > 0} -->
-    <!--   <div class="mt-4"> -->
-    <!--     <p class="font-semibold text-gray-800"> -->
-    <!--       Registered Users ({event.registeredUsers.length}): -->
-    <!--     </p> -->
-    <!--     <ul class="mt-2 space-y-2"> -->
-    <!--       {#each event.registeredUsers as user} -->
-    <!--         <li class="flex items-center gap-2"> -->
-    <!--           {#if user.photoURL} -->
-    <!--             <img -->
-    <!--               src={user.photoURL} -->
-    <!--               alt={user.displayName || user.email || "User"} -->
-    <!--               class="w-8 h-8 rounded-full" -->
-    <!--             /> -->
-    <!--           {:else} -->
-    <!--             <div -->
-    <!--               class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center" -->
-    <!--             > -->
-    <!--               <span class="text-sm text-gray-600" -->
-    <!--                 >{(user.displayName || -->
-    <!--                   user.email || -->
-    <!--                   "?")[0].toUpperCase()}</span -->
-    <!--               > -->
-    <!--             </div> -->
-    <!--           {/if} -->
-    <!--           <span class="text-gray-700" -->
-    <!--             >{user.displayName || user.email || "Anonymous"}</span -->
-    <!--           > -->
-    <!--         </li> -->
-    <!--       {/each} -->
-    <!--     </ul> -->
-    <!--   </div> -->
-    <!-- {/if} -->
+    {#if event.users.length > 0}
+      <div class="mt-4">
+        <p class="font-semibold text-gray-800">
+          Registered Users ({event.users.length}):
+        </p>
+        <ul class="mt-2 space-y-2">
+          {#each event.users as user}
+            <li class="flex items-center gap-2">
+              {#if user.photoURL}
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName || user.email || "User"}
+                  class="w-8 h-8 rounded-full"
+                />
+              {:else}
+                <div
+                  class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center"
+                >
+                  <span class="text-sm text-gray-600"
+                    >{(user.displayName ||
+                      user.email ||
+                      "?")[0].toUpperCase()}</span
+                  >
+                </div>
+              {/if}
+              <span class="text-gray-700"
+                >{user.displayName || user.email || "Anonymous"}</span
+              >
+            </li>
+          {/each}
+        </ul>
+      </div>
+    {/if}
   </div>
 </div>
