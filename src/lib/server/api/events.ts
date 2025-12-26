@@ -6,7 +6,7 @@ export const getAllEvents = async (customFetch: typeof fetch): Promise<EventList
   return res.data;
 }
 
-export const getEventById = async (customFetch: typeof fetch, eventId: string) => {
-  const res = await get<RemindEvent>(customFetch, `/admin/events/${eventId}`)
+export const getEventById = async (customFetch: typeof fetch, eventId: string): Promise<RemindEvent> => {
+  const res = await get<RemindEvent>(customFetch, `/events/${eventId}`)
   return res.data;
 }
