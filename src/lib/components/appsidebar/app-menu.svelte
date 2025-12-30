@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { House } from "@lucide/svelte";
+  import { CalendarFold, House } from "@lucide/svelte";
   import type { SimpleRoute } from "$lib/types/route";
   import { Menu, MenuButton } from "$lib/components/ui/sidebar";
 
@@ -8,6 +8,10 @@
       name: "Home",
       route: "/",
       icon: House,
+    },
+    {
+      name: "Event",
+      icon: CalendarFold,
     },
   ];
 </script>
