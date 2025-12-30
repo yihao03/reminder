@@ -70,7 +70,7 @@ async function api<T>(
       : resData;
   } catch (error) {
     console.error(`[API] Network error for ${endpoint}:`, error);
-    return DEFAULT_API_RESPONSE;
+    throw error;
   }
 }
 
