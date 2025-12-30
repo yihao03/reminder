@@ -38,7 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const handleFetch: HandleFetch = async ({ request, fetch, event }) => {
-  console.info('Handling fetch for request to:', request.url);
+  console.info(`\x1b[33m[FETCH]\x1b[0m \x1b[32m${request.method} ${request.url}\x1b[0m`);
   if (request.url.startsWith(BACKEND_URL)) {
     const token = event.cookies.get('session');
 
