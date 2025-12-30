@@ -34,7 +34,7 @@
         <p class="text-gray-600 whitespace-pre-wrap">{event.details}</p>
       </div>
     {/if}
-    {#if event.users.length > 0}
+    {#if event.users && event.users.length > 0}
       <div class="mt-4">
         <p class="font-semibold text-gray-800">
           Registered Users ({event.users.length}):
