@@ -4,4 +4,5 @@ export type SimpleRoute = {
   name: string;
   route?: string;
   icon: Component;
+  nested?: SimpleRoute[];
 }

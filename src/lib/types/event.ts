@@ -8,10 +8,12 @@ export const EventSchema = z.object({
   organiser: z.string(),
   isOnline: z.boolean(),
   locationName: z.string(),
+  state: z.string(),
   startTime: z.iso.datetime(),
   endTime: z.iso.datetime(),
   details: z.string(),
-  users: z.array(UserSchema)
+  users: z.array(UserSchema),
+  registrationLink: z.url()
 })
 
 export const EventCreateSchema = EventSchema.omit({ id: true, createdAt: true, users: true })
