@@ -5,13 +5,20 @@
   import * as Field from "$lib/components/ui/field";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
+  import * as Select from "$lib/components/ui/select";
   import { Textarea } from "$lib/components/ui/textarea";
+  import { STATES, type State } from "$lib/types/state";
 
   const nowLocal: string = new Date(
     Date.now() - new Date().getTimezoneOffset() * 60000,
   )
     .toISOString()
     .slice(0, 16);
+
+  let stateSelected = $state<State | undefined>(undefined);
+  let stateDisplay: string = $derived(
+    stateSelected ? stateSelected : "Select a state",
+  );
 </script>
 
 <div class="w-full max-w-md flex flex-col p-8">
@@ -39,6 +46,22 @@
         <Field.Set>
           <Label for="locationName">Location name</Label>
           <Input id="locationName" name="locationName" type="text" required />
+        </Field.Set>
+        <Field.Set>
+          <Label for="state">State</Label>
+          <Select.Root
+            name="state"
+            type="single"
+            required
+            bind:value={stateSelected}
+          >
+            <Select.Trigger id="state">{stateDisplay}</Select.Trigger>
+            <Select.Content>
+              {#each Object.values(STATES) as state}
+                <Select.Item value={state}>{state}</Select.Item>
+              {/each}
+            </Select.Content>
+          </Select.Root>
         </Field.Set>
         <Field.Set class="flex flex-row items-center">
           <Input type="hidden" name="isOnline" value="false" />
@@ -76,6 +99,16 @@
       <Field.Set>
         <Field.Label for="details">Details</Field.Label>
         <Textarea id="details" name="details" rows={4} required></Textarea>
+      </Field.Set>
+
+      <Field.Set>
+        <Field.Label for="registrationLink">Registration link</Field.Label>
+        <Input
+          id="registrationLink"
+          name="registrationLink"
+          type="url"
+          required
+        />
       </Field.Set>
 
       <Field.Set>
